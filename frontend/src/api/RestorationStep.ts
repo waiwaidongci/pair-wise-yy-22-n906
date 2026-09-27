@@ -1,18 +1,16 @@
-import { mockData } from "../mocks/seedData";
+import { request } from "./client";
+import { mockPlanClient } from "../mocks/mockPlanClient";
 import type { RestorationStep } from "../types/RestorationStep";
 
 const endpoint = "/api/restoration-step";
 
 export async function listRestorationStep(): Promise<RestorationStep[]> {
-  if (typeof fetch !== "undefined" && endpoint.startsWith("/api") && true) {
-    try {
-      const res = await fetch(endpoint);
-      if (res.ok) return await res.json();
-    } catch {
-      // Local mock fallback keeps the UI available during offline review.
-    }
+  try {
+    return await request<RestorationStep[]>(endpoint);
+  } catch {
+    // Local mock fallback keeps the UI available during offline review.
+    return mockPlanClient.listSteps();
   }
-  return [...(mockData.restorationStep as unknown as RestorationStep[])];
 }
 
 export async function saveRestorationStep(payload: RestorationStep) {

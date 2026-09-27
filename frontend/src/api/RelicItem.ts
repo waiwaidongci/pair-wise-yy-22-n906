@@ -1,18 +1,16 @@
-import { mockData } from "../mocks/seedData";
+import { request } from "./client";
+import { mockPlanClient } from "../mocks/mockPlanClient";
 import type { RelicItem } from "../types/RelicItem";
 
 const endpoint = "/api/relic-item";
 
 export async function listRelicItem(): Promise<RelicItem[]> {
-  if (typeof fetch !== "undefined" && endpoint.startsWith("/api") && true) {
-    try {
-      const res = await fetch(endpoint);
-      if (res.ok) return await res.json();
-    } catch {
-      // Local mock fallback keeps the UI available during offline review.
-    }
+  try {
+    return await request<RelicItem[]>(endpoint);
+  } catch {
+    // Local mock fallback keeps the UI available during offline review.
+    return mockPlanClient.listRelics();
   }
-  return [...(mockData.relicItem as unknown as RelicItem[])];
 }
 
 export async function saveRelicItem(payload: RelicItem) {

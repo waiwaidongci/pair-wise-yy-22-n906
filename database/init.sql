@@ -29,8 +29,16 @@ CREATE TABLE IF NOT EXISTS restoration_plan (
   method TEXT,
   risk_assessment TEXT,
   approval_status TEXT,
-  owner_id TEXT
+  owner_id TEXT,
+  submitted_by TEXT,
+  submitted_at TEXT,
+  reviewed_by TEXT,
+  reviewed_at TEXT,
+  reject_reason TEXT
 );
+
+-- approval_status 状态机：DRAFT -> SUBMITTED -> APPROVED / REJECTED（REJECTED 可重新提交）
+-- 仅 SUBMITTED 可被专家处理；APPROVED 后联动生成第一条 restoration_step 并把文物置为 IN_RESTORATION。
 
 CREATE TABLE IF NOT EXISTS restoration_step (
   id INTEGER PRIMARY KEY,
