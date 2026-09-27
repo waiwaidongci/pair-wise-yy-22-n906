@@ -52,6 +52,15 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 - 数据库使用命名卷，避免绑定中文路径。
 - 常见问题：端口占用时修改 `.env` 中端口后重启；需要重置数据时执行 `docker compose down -v`。
 
+## 修复方案审批台
+
+`/plans` 页面为方案审批台，通过页面右上角切换角色（修复师 / 专家 / 档案员 / 访客）体验不同权限：
+
+- 修复师：新建方案草稿、将草稿或已退回方案提交审批。
+- 专家：审批「待审批」方案；通过时自动生成第一条修复步骤并将文物状态置为 `IN_RESTORATION`，退回时必须填写退回原因。
+- 仅 `SUBMITTED` 状态可审批，重复审批返回 `PLAN_NOT_PENDING`；角色不符返回 `RBAC_DENIED`；退回缺原因返回 `REJECT_REASON_REQUIRED`。
+- 审批接口：`POST /api/restoration-plan/:id/submit|approve|reject`（请求头 `x-role`、`x-user-id` 标识操作人），新建：`POST /api/restoration-plan`。
+
 ## 枚举/常量出现位置清单
 
 - RelicCondition: constants/RelicCondition、types/RelicCondition、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。

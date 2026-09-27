@@ -1,3 +1,5 @@
+import { PlansPage } from "../pages/PlansPage";
+
 export const routes = [
   {
     "name": "修复工作台",
@@ -13,7 +15,8 @@ export const routes = [
   },
   {
     "name": "修复方案",
-    "route": "/plans"
+    "route": "/plans",
+    "component": PlansPage
   },
   {
     "name": "影像版本",

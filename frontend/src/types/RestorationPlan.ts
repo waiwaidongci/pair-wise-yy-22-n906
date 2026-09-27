@@ -1,3 +1,6 @@
+import type { RestorationStep } from "./RestorationStep";
+import type { RelicItem } from "./RelicItem";
+
 export interface RestorationPlan {
   id: number;
   relic_id: number;
@@ -7,4 +10,17 @@ export interface RestorationPlan {
   risk_assessment: string;
   approval_status: string;
   owner_id: number;
+  submitted_by?: number | null;
+  submitted_at?: string | null;
+  approved_by?: number | null;
+  approved_at?: string | null;
+  rejected_by?: number | null;
+  rejected_at?: string | null;
+  reject_reason?: string | null;
+}
+
+export interface PlanApprovalResult {
+  plan: RestorationPlan;
+  step?: RestorationStep;
+  relic?: RelicItem;
 }

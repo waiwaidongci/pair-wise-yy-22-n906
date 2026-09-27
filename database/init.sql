@@ -29,7 +29,14 @@ CREATE TABLE IF NOT EXISTS restoration_plan (
   method TEXT,
   risk_assessment TEXT,
   approval_status TEXT,
-  owner_id TEXT
+  owner_id TEXT,
+  submitted_by TEXT,
+  submitted_at TEXT,
+  approved_by TEXT,
+  approved_at TEXT,
+  rejected_by TEXT,
+  rejected_at TEXT,
+  reject_reason TEXT
 );
 
 CREATE TABLE IF NOT EXISTS restoration_step (

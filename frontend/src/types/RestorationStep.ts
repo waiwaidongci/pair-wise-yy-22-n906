@@ -6,5 +6,5 @@ export interface RestorationStep {
   material_used: string;
   operator_id: number;
   step_status: string;
-  finished_at: string;
+  finished_at: string | null;
 }
